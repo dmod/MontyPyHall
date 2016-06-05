@@ -17,6 +17,8 @@ class MontyHallSim:
         for game in self.games:
             game.shutdown()
 
+        switchWinPercentage = switchWins / (switchLosses + switchWins)
+        print("switchWins : " + str(switchWins) + " switch losses " + str(switchLosses) + " percentage " + str(switchWinPercentage), end='\r')
         self.shutdownFlag = True
 
     # For the number of processes defined, start a worker process that will
