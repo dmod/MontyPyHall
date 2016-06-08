@@ -38,7 +38,7 @@ class MontyHallSim:
             collectiveSwitchLosses = 0
 
             for game in self.games:
-                switchWins, switchLosses = game.getCurrentResults()
+                switchWins, switchLosses = game.get_current_results()
 
                 with switchWins.get_lock():
                     collectiveSwitchWins += switchWins.value

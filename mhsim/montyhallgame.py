@@ -53,7 +53,7 @@ class MontyHallGame(multiprocessing.Process):
             if doorIndex != contestantPick and doorIndex != montyPick:
                 return (doors[doorIndex] is Door.car)
 
-    def getCurrentResults(self):
+    def get_current_results(self):
         return (self.switchWins, self.switchLosses)
 
     def run(self):
