@@ -14,55 +14,56 @@ class MontyHallGame(multiprocessing.Process):
     def __init__(self):
         super(MontyHallGame, self).__init__()
 
-        self.shutdownFlag = False
+        self.shutdown_flag = False
         signal.signal(signal.SIGTERM, self.shutdown)
 
-        self.switchWins = multiprocessing.Value('i', 0)
-        self.switchLosses = multiprocessing.Value('i', 0)
+        self.switch_wins = multiprocessing.Value('i', 0)
+        self.switch_losses = multiprocessing.Value('i', 0)
 
     def shutdown(self, *args):
-        self.shutdownFlag = True
+        self.shutdown_flag = True
 
-    def goGame(self):
+    @staticmethod
+    def go_game(self):
 
         doors = []
         # The car will be placed at a random index between 0 and NUM_DOORS
-        carIndex = random.randrange(0, NUM_DOORS)
+        car_index = random.randrange(0, NUM_DOORS)
 
         # Iterate through the NUM_DOORS and populate each door with either a
         # car or a goat depending on the index of the door
-        for doorIndex in range(NUM_DOORS):
-            if doorIndex == carIndex:
+        for door_index in range(NUM_DOORS):
+            if door_index == car_index:
                 doors.append(Door.car)
             else:
                 doors.append(Door.goat)
 
         # Doors are now populated, have the contestant pick a random door index
-        contestantPick = random.randrange(0, NUM_DOORS)
+        contestant_pick = random.randrange(0, NUM_DOORS)
 
         # Now that the contestant has picked their door choice, have Monty pick
         # a door that 1) The contestant did not pick AND 2) Does not have a car
         # behind it (Monty knows which door has a car)
-        for doorIndex in range(NUM_DOORS):
-            if doorIndex != contestantPick and doors[doorIndex] is not Door.car:
-                montyPick = doorIndex
+        for door_index in range(NUM_DOORS):
+            if door_index != contestant_pick and doors[door_index] is not Door.car:
+                monty_pick = door_index
 
         # Now, since this contestant will always switch their choice, iterate
         # through the doors to find the door that neither the contestant nor
         # Monty picked (the door that the contestant would have switched to)
         # and return True if the door contained the car
-        for doorIndex in range(NUM_DOORS):
-            if doorIndex != contestantPick and doorIndex != montyPick:
-                return (doors[doorIndex] is Door.car)
+        for door_index in range(NUM_DOORS):
+            if door_index not in [contestant_pick, monty_pick]:
+                return (doors[door_index] is Door.car)
 
     def get_current_results(self):
-        return (self.switchWins, self.switchLosses)
+        return (self.switch_wins, self.switch_losses)
 
     def run(self):
-        while not self.shutdownFlag:
-            if self.goGame():
-                with self.switchWins.get_lock():
-                    self.switchWins.value += 1
+        while not self.shutdown_flag:
+            if self.go_game():
+                with self.switch_wins.get_lock():
+                    self.switch_wins.value += 1
             else:
-                with self.switchLosses.get_lock():
-                    self.switchLosses.value += 1
+                with self.switch_losses.get_lock():
+                    self.switch_losses.value += 1
