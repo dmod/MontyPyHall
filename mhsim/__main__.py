@@ -2,6 +2,7 @@ import multiprocessing
 import signal
 import traceback
 import time
+from __future__ import print_function
 
 import montyhallgame
 
