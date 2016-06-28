@@ -5,7 +5,7 @@ import time
 
 import montyhallgame
 
-NUM_PROCESSES = 4
+NUM_PROCESSES = multiprocessing.cpu_count()
 
 class MontyHallSim:
 
