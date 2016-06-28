@@ -1,8 +1,9 @@
+from __future__ import print_function
+
 import multiprocessing
 import signal
 import traceback
 import time
-from __future__ import print_function
 
 import montyhallgame
 
@@ -14,6 +15,7 @@ class MontyHallSim:
         self.shutdownFlag = False
         signal.signal(signal.SIGINT, self.shutdown)
         signal.signal(signal.SIGTERM, self.shutdown)
+        print("Number of processes: %d, simulation starting..." % NUM_PROCESSES)
 
     def shutdown(self, *args):
         for game in self.games:
@@ -46,8 +48,10 @@ class MontyHallSim:
                 with switchLosses.get_lock():
                     collectiveSwitchLosses += switchLosses.value
 
-            print("Switch Wins: " + str(collectiveSwitchWins) +
-                  " Switch Losses: " + str(collectiveSwitchLosses), end='\r')
+            winRate = collectiveSwitchLosses / collectiveSwitchWins
+
+            print("Switch Wins: %d, Switch Losses: %d" %
+                 (collectiveSwitchWins, collectiveSwitchLosses), end = "\r")
 
 if __name__ == "__main__":
     # execute only if run as a script

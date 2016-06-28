@@ -1,11 +1,13 @@
 import random
 import signal
 import multiprocessing
-from enum import Enum
 
 NUM_DOORS = 3
 
-Door = Enum('Door', 'goat car')
+# 'Enum'-like class used to represent either a 'goat' or 'car' door
+class Door:
+    goat = 1
+    car = 2
 
 class MontyHallGame(multiprocessing.Process):
 
