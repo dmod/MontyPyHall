@@ -24,7 +24,7 @@ class MontyHallGame(multiprocessing.Process):
         self.shutdown_flag = True
 
     @staticmethod
-    def go_game(self):
+    def go_game():
 
         doors = []
         # The car will be placed at a random index between 0 and NUM_DOORS
@@ -61,7 +61,7 @@ class MontyHallGame(multiprocessing.Process):
 
     def run(self):
         while not self.shutdown_flag:
-            if self.go_game():
+            if MontyHallGame.go_game():
                 with self.switch_wins.get_lock():
                     self.switch_wins.value += 1
             else:
