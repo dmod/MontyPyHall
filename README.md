@@ -1,3 +1,4 @@
+[![Code Climate](https://codeclimate.com/github/dmod/MontyPyHall/badges/gpa.svg)](https://codeclimate.com/github/dmod/MontyPyHall)
 [![Code Issues](https://www.quantifiedcode.com/api/v1/project/f0fc38727f924e1ea70d07dccf2e0da8/badge.svg)](https://www.quantifiedcode.com/app/project/f0fc38727f924e1ea70d07dccf2e0da8)
 
 
