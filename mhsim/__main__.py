@@ -15,7 +15,7 @@ class MontyHallSim:
         self.shutdown_flag = False
         signal.signal(signal.SIGINT, self.shutdown)
         signal.signal(signal.SIGTERM, self.shutdown)
-        print("Number of processes: %d, simulation starting..." % NUM_PROCESSES)
+        print("Number of processes: {0}, simulation starting...".format(NUM_PROCESSES))
 
     def shutdown(self, *args):
         for game in self.games:
@@ -48,8 +48,7 @@ class MontyHallSim:
                 with switch_losses.get_lock():
                     collective_switch_losses += switch_losses.value
 
-            print("Switch Wins: %d, Switch Losses: %d" %
-                 (collective_switch_wins, collective_switch_losses), end = "\r")
+            print("Switch Wins: {0}, Switch Losses: {1}".format(collective_switch_wins, collective_switch_losses), end = "\r")
 
 if __name__ == "__main__":
     # execute only if run as a script
