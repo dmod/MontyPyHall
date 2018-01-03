@@ -9,6 +9,7 @@ import montyhallgame
 
 NUM_PROCESSES = multiprocessing.cpu_count()
 
+
 class MontyHallSim:
 
     def __init__(self):
@@ -48,7 +49,9 @@ class MontyHallSim:
                 with switch_losses.get_lock():
                     collective_switch_losses += switch_losses.value
 
-            print("Switch Wins: {0}, Switch Losses: {1}".format(collective_switch_wins, collective_switch_losses), end = "\r")
+            print("Switch Wins: {0}, Switch Losses: {1}".format(collective_switch_wins, collective_switch_losses),
+                  end="\r")
+
 
 if __name__ == "__main__":
     # execute only if run as a script

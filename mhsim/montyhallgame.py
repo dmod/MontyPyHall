@@ -4,10 +4,12 @@ import multiprocessing
 
 NUM_DOORS = 3
 
+
 # 'Enum'-like class used to represent either a 'goat' or 'car' door
 class Door:
     goat = 1
     car = 2
+
 
 class MontyHallGame(multiprocessing.Process):
 
@@ -57,7 +59,7 @@ class MontyHallGame(multiprocessing.Process):
                 return (doors[door_index] is Door.car)
 
     def get_current_results(self):
-        return (self.switch_wins, self.switch_losses)
+        return self.switch_wins, self.switch_losses
 
     def run(self):
         while not self.shutdown_flag:
